@@ -1,8 +1,8 @@
 .banner {
     height: 56vh;
-    background-position: left;
+    background-position: center center;
     background-repeat: no-repeat;
-    background-size: 100% 100%;
+    background-size: cover;
 }
 
 .banner::before {
