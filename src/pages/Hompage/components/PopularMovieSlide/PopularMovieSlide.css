@@ -1,0 +1,12 @@
+.carousel-container {
+    width: 100vw;
+    overflow: hidden;
+    height: 400px;
+    background-color: black;
+}
+
+@media (max-width: 1024px) {
+    .carousel-container {
+        height: 300px;
+    }
+}
