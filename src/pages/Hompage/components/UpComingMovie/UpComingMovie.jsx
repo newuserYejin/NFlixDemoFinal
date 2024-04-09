@@ -1,22 +1,22 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { useUpComingMoviesQuery } from "../../../../hooks/UpComingMovie";
 import Alert from "react-bootstrap/Alert";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { popularMovieResponsive } from "../../../../constants/responsive";
 
-const PopularMovieSlide = () => {
-  const { data, isLoading, isError, error } = usePopularMoviesQuery(); // 기존에 만들어둔 훅
+const UpComingMovie = () => {
+  const { data, isLoading, isError, error } = useUpComingMoviesQuery();
   if (isLoading) {
-    return <h1>Loading...</h1>;
+    return <h1>Loading....</h1>;
   }
   if (isError) {
-    return <Alert variant="danger">${error.message}</Alert>;
+    return <Alert variant="danger">{error.message}</Alert>;
   }
 
   return (
     <div style={{ width: "100%" }}>
       <MovieSlider
-        title="Popular Movies"
+        title="UpComing Movies"
         movies={data.results}
         responsive={popularMovieResponsive}
       />
@@ -24,4 +24,4 @@ const PopularMovieSlide = () => {
   );
 };
 
-export default PopularMovieSlide;
+export default UpComingMovie;

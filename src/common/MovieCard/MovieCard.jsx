@@ -4,8 +4,22 @@ import "./MovieCard.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 
 const MovieCard = ({ movie }) => {
+  const { data: genreData } = useMovieGenreQuery();
+
+  const showGenre = (genreIdList) => {
+    if (!genreData) return [];
+
+    const genreNameList = genreIdList.map((id) => {
+      const genreObj = genreData.find((genre) => genre.id === id);
+      return genreObj.name;
+    });
+
+    return genreNameList;
+  };
+
   return (
     <div
       className="MovieCard"
@@ -21,8 +35,12 @@ const MovieCard = ({ movie }) => {
           <div className="MovieCardTitle">{movie.title}</div>
           <div className="MovieCardSecondLine">
             <div className="genreList">
-              {movie.genre_ids.map((id) => {
-                return <Badge bg="danger">{id}</Badge>;
+              {showGenre(movie.genre_ids).map((genre, index) => {
+                return (
+                  <Badge bg="danger" key={index}>
+                    {genre}
+                  </Badge>
+                );
               })}
             </div>
             <div

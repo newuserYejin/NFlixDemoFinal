@@ -1,11 +1,11 @@
 import React from "react";
-import { usePopularMoviesQuery } from "../../../../hooks/usePopularMovies";
+import { useTopRatedMoviesQuery } from "../../../../hooks/useTopRatedMovie";
 import Alert from "react-bootstrap/Alert";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { popularMovieResponsive } from "../../../../constants/responsive";
 
-const PopularMovieSlide = () => {
-  const { data, isLoading, isError, error } = usePopularMoviesQuery(); // 기존에 만들어둔 훅
+const TopRatedMovieSlide = () => {
+  const { data, isLoading, isError, error } = useTopRatedMoviesQuery(); // 기존에 만들어둔 훅
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -16,12 +16,12 @@ const PopularMovieSlide = () => {
   return (
     <div style={{ width: "100%" }}>
       <MovieSlider
-        title="Popular Movies"
+        title="Top Rated Movies"
         movies={data.results}
-        responsive={popularMovieResponsive}
+        responsive={popularMovieResponsive} // 구조를 바꿀게 아니기 때문에 그대로 사용해도 된다.
       />
     </div>
   );
 };
 
-export default PopularMovieSlide;
+export default TopRatedMovieSlide;

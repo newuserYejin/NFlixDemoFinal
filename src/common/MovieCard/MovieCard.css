@@ -106,3 +106,47 @@
 .MovieCardThirdLine div:last-child {
     margin-left: 10px;
 }
+
+@media (max-width: 464px) {
+    .overlay {
+        padding: 5px;
+    }
+
+    .MovieCardTitle {
+        font-size: 1.1em;
+        margin-bottom: 10px;
+    }
+
+    .MovieCardSecondLine {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .MovieCardSecondLine>div {
+        max-width: 100%;
+    }
+
+    .MovieCardSecondLine div {
+        font-size: 0.9em;
+        margin-bottom: 10px;
+    }
+
+    .MovieCardSecondLine div:last-child {
+        font-size: 0.9em;
+        width: 40%;
+    }
+
+    .MovieCardThirdLine div {
+        padding: 5px;
+        font-size: 0.8em;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    .MovieCardThirdLine div svg {
+        margin: 0;
+        width: 40%;
+        margin-right: 2px;
+    }
+}

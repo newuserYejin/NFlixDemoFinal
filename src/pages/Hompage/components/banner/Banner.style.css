@@ -38,3 +38,18 @@
     font-weight: 600;
     font-size: 1.7em;
 }
+
+@media (max-width: 464px) {
+    .banner-text-area>* {
+        width: 80%;
+
+    }
+
+    .banner-text-area>*:first-child {
+        text-align: end;
+    }
+
+    .banner-text-area>*:last-child {
+        margin-bottom: 30px;
+    }
+}
