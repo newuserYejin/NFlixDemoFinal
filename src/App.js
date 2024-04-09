@@ -17,8 +17,8 @@ import NotFound from './pages/NotFound/NotFound';
 <Route path='/movies/:id' element={<MovieDetailPage />} /> */
 function App() {
   return (
-    <Routes>
-      <div className='body'>
+    <div className='body'>
+      <Routes>
         <Route path='/' element={<AppLayout />}>
           <Route index element={<Homepage />} />
           <Route path="/movies">
@@ -28,8 +28,8 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
-      </div>
-    </Routes>
+      </Routes>
+    </div>
   );
 }
 
