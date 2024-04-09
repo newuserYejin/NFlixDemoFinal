@@ -1,6 +1,6 @@
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
-import { Routes, Route, Link } from 'react-router-dom'
+import { Routes, Route } from 'react-router-dom'
 import AppLayout from './layout/AppLayout';
 import Homepage from './pages/Hompage/Homepage';
 import MoviePage from './pages/Movies/MoviePage';
@@ -17,8 +17,8 @@ import NotFound from './pages/NotFound/NotFound';
 <Route path='/movies/:id' element={<MovieDetailPage />} /> */
 function App() {
   return (
-    <div className='body'>
-      <Routes>
+    <Routes>
+      <div className='body'>
         <Route path='/' element={<AppLayout />}>
           <Route index element={<Homepage />} />
           <Route path="/movies">
@@ -28,8 +28,8 @@ function App() {
         </Route>
 
         <Route path="*" element={<NotFound />} />
-      </Routes>
-    </div>
+      </div>
+    </Routes>
   );
 }
 
