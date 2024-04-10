@@ -5,8 +5,16 @@ import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 import "./MovieCard.css";
+import { useNavigate } from "react-router-dom";
 
 const MovieCard = ({ movie }) => {
+  const navigate = useNavigate();
+
+  const moveMovieDetail = (id) => {
+    console.log("id:", id);
+    navigate(`/movies/${id}`);
+  };
+
   const { data: genreData } = useMovieGenreQuery();
 
   const showGenre = (genreIdList) => {
@@ -29,6 +37,7 @@ const MovieCard = ({ movie }) => {
           `https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.poster_path}` +
           ")",
       }}
+      onClick={() => moveMovieDetail(movie.id)}
     >
       <div className="overlay">
         <div>
