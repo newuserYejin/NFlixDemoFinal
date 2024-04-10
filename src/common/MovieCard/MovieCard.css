@@ -149,4 +149,23 @@
         width: 40%;
         margin-right: 2px;
     }
+
+    .react-multi-carousel-track {
+        left: -20px;
+    }
+
+    .react-multi-carousel-item--active {
+        transform: scale(1.3);
+        margin: 0 20px;
+        transition: 1s;
+    }
+
+    .react-multi-carousel-item--active>.overlay {
+        width: 100%;
+    }
+
+    .MovieCard:hover {
+        transform: scale(1) translateZ(20px);
+        z-index: 2;
+    }
 }
