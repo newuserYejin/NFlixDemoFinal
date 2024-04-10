@@ -19,7 +19,7 @@ import NotFound from './pages/NotFound/NotFound';
 function App() {
   return (
     <div className='body'>
-      <Routes>
+      <Routes className="all">
         <Route path="/" element={<AppLayout />}>
           <Route index element={<Homepage />} />
           <Route path="/movies">

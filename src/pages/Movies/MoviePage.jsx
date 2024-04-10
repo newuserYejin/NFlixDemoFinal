@@ -4,6 +4,7 @@ import { useSearchParams } from "react-router-dom";
 import { Container, Col, Row, Alert } from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
+import "./MoviePage.style.css";
 
 // 이동 경로 2가지
 // 네비바에서 검색 ( popular movie 출력 )
@@ -35,12 +36,12 @@ const MoviePage = () => {
     return <Alert variant="danger">{error.message}</Alert>;
   }
   return (
-    <Container>
+    <Container className="searchContainer">
       <Row>
-        <Col lg={4} xs={12}>
+        <Col lg={6} md={4} xs={12}>
           필터
         </Col>
-        <Col lg={8} xs={12}>
+        <Col lg={6} md={8} xs={12}>
           <Row>
             {data?.results.map((movie, index) => (
               <Col lg={4} xs={6}>
@@ -48,27 +49,29 @@ const MoviePage = () => {
               </Col>
             ))}
           </Row>
-          <ReactPaginate
-            nextLabel="next >"
-            onPageChange={handlePageClick}
-            pageRangeDisplayed={3}
-            marginPagesDisplayed={2}
-            pageCount={data.total_pages} // 전체 페이지 수
-            previousLabel="< previous"
-            pageClassName="page-item"
-            pageLinkClassName="page-link"
-            previousClassName="page-item"
-            previousLinkClassName="page-link"
-            nextClassName="page-item"
-            nextLinkClassName="page-link"
-            breakLabel="..."
-            breakClassName="page-item"
-            breakLinkClassName="page-link"
-            containerClassName="pagination"
-            activeClassName="active"
-            renderOnZeroPageCount={null}
-            forcePage={page - 1}
-          />
+          <div className="paginationArea">
+            <ReactPaginate
+              nextLabel=">"
+              onPageChange={handlePageClick}
+              pageRangeDisplayed={10}
+              marginPagesDisplayed={0}
+              pageCount={data.total_pages} // 전체 페이지 수
+              previousLabel="<"
+              pageClassName="page-item"
+              pageLinkClassName="page-link"
+              previousClassName="page-item"
+              previousLinkClassName="page-link"
+              nextClassName="page-item"
+              nextLinkClassName="page-link"
+              breakLabel=">>"
+              breakClassName="page-item"
+              breakLinkClassName="page-link"
+              containerClassName="pagination"
+              activeClassName="active"
+              renderOnZeroPageCount={null}
+              forcePage={page - 1}
+            />
+          </div>
         </Col>
       </Row>
     </Container>

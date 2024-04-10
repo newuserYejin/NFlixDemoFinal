@@ -1,0 +1,47 @@
+.row>* {
+    margin-bottom: 10px;
+    padding-left: 0;
+    height: 350px;
+}
+
+.searchContainer {
+    margin-top: 10px;
+}
+
+.pagination {
+    justify-content: center;
+    --bs-pagination-bg: black;
+    --bs-pagination-disabled-color: red;
+    --bs-pagination-disabled-bg: none
+}
+
+.pagination>li>a[aria-label="Jump forward"] {
+    display: none;
+}
+
+.pagination li a {
+    font-size: 1.3em;
+    border: none;
+    color: rgb(185, 2, 2);
+    font-weight: 600;
+}
+
+.paginationArea {
+    border: solid 1px black;
+    /* margin: 10px; */
+}
+
+.pagination>li>a[aria-current="page"] {
+    background-color: white;
+    border-radius: 50%;
+    color: black;
+    font-weight: 600;
+}
+
+.page-link:focus,
+.page-link:focus-visible,
+.page-link:hover {
+    color: black;
+    background-color: rgb(206, 205, 205);
+    border-radius: 50%;
+}
