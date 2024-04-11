@@ -6,13 +6,24 @@ import { Container, Col, Row, Alert, Badge } from "react-bootstrap";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import "./MovieDetailPage.style.css";
+import MovieReview from "./component/Reviews/MovieReview";
+import RecommendMovies from "./component/RecommendMovies/RecommendMovies";
+import { useState, useEffect } from "react";
 
 const MovieDetailPage = () => {
+  const [totalReviews, setTotalReviews] = useState(0);
+
+  useEffect(() => {
+    console.log("totalReviews:", totalReviews);
+  }, [totalReviews]);
+
   const { id } = useParams();
   console.log("id:", id);
 
+  const [selectedSection, setSelectedSection] = useState("review");
   const { data, isLoading, isError, error } = useDetailMoviesQuery(id);
 
+  console.log("Detail data:", data);
   if (isLoading) {
     return <h1>Loading...</h1>;
   }
@@ -24,11 +35,9 @@ const MovieDetailPage = () => {
     return { name: genre.name, id: genre.id };
   }); // 장르로 검색 시 필요할지 모르니까 id 추가해놓기
 
-  console.log("Detail data:", data);
-
-  function capitalize(word) {
-    return word.charAt(0).toUpperCase() + word.slice(1);
-  }
+  const handleSectionChange = (e) => {
+    setSelectedSection(e.target.value);
+  };
 
   return (
     <Container className="detailAllBox">
@@ -96,9 +105,51 @@ const MovieDetailPage = () => {
           </div>
         </Col>
       </Row>
-      <Row>
-        <Col></Col>
-      </Row>
+      <hr></hr>
+      <div className="selectButton">
+        <input
+          type="radio"
+          id="review"
+          name="section"
+          value="review"
+          checked={selectedSection === "review"}
+          onChange={handleSectionChange}
+          style={{ display: "none" }}
+        />
+        <label
+          htmlFor="review"
+          className={selectedSection === "review" ? "checkButton" : ""}
+        >
+          Review ({totalReviews})
+        </label>
+        <input
+          type="radio"
+          id="recommend"
+          name="section"
+          value="recommend"
+          checked={selectedSection === "recommend"}
+          onChange={handleSectionChange}
+          style={{ display: "none" }}
+        />
+        <label
+          htmlFor="recommend"
+          className={selectedSection === "recommend" ? "checkButton" : ""}
+        >
+          Recommend Movies
+        </label>
+      </div>
+      {selectedSection === "review" && (
+        <div>
+          <MovieReview id={id} setTotalReviews={setTotalReviews}></MovieReview>
+        </div>
+      )}
+      {selectedSection === "recommend" && (
+        <Row>
+          <Col>
+            <RecommendMovies id={id} />
+          </Col>
+        </Row>
+      )}
     </Container>
   );
 };

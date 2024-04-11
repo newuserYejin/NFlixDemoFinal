@@ -1,0 +1,58 @@
+.reviewBox {
+    border: solid 1px red;
+    margin-bottom: 10px;
+    border-radius: 0.375em;
+    padding: 10px;
+    background-color: rgb(211, 211, 211);
+    color: black;
+}
+
+.reviewTop {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.reviewAuthor {
+    font-size: 1.2em;
+    font-weight: bold;
+}
+
+.reviewContent {
+    font-size: 0.9em;
+    margin-bottom: 10px;
+
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+}
+
+.reviewDate {
+    text-align: end;
+    max-width: 40%;
+}
+
+.toggleButton {
+    display: flex;
+    justify-content: end;
+}
+
+.toggleButton>div {
+    border-bottom: solid 1px red;
+    cursor: pointer;
+}
+
+.toggleButton>div:hover {
+    color: red;
+}
+
+@media (max-width: 464px) {
+    .reviewAuthor {
+        font-size: 1.1em;
+    }
+
+    .reviewBox {
+        font-size: 0.9em;
+    }
+}
