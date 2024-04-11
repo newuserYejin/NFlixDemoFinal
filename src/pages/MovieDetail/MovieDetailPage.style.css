@@ -55,9 +55,26 @@ hr {
 .detailUserInfo {
     display: flex;
     align-items: center;
+    justify-content: space-between;
 }
 
-.detailUserInfo div {
+.detailUserInfo>div:first-child {
+    display: flex;
+    align-items: center;
+}
+
+.detailUserInfo>button {
+    border: solid 2px white;
+    padding: 7px;
+    border-radius: 0.375em;
+    font-weight: 600;
+    cursor: pointer;
+    color: white;
+
+    background: none;
+}
+
+.detailUserInfo>div>div {
     display: flex;
     align-items: center;
     background-color: #fdc500;
@@ -112,6 +129,11 @@ hr {
 .checkButton {
     background-color: rgb(220, 53, 69);
     color: white;
+}
+
+/*모달 창*/
+.modal-dialog {
+    max-width: 80%;
 }
 
 @media (max-width: 1024px) {

@@ -3,6 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import { useDetailMoviesQuery } from "../../hooks/useDetailMovie";
 import { Container, Col, Row, Alert, Badge } from "react-bootstrap";
+import { Button, Modal } from "react-bootstrap";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import "./MovieDetailPage.style.css";
@@ -10,6 +11,8 @@ import MovieReview from "./component/Reviews/MovieReview";
 import RecommendMovies from "./component/RecommendMovies/RecommendMovies";
 import { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+import YouTube from "react-youtube";
+import { useMovieTrailerQuery } from "../../hooks/useMovieTrailer";
 
 const MovieDetailPage = () => {
   const [totalReviews, setTotalReviews] = useState(0);
@@ -18,6 +21,21 @@ const MovieDetailPage = () => {
   useEffect(() => {
     console.log("totalReviews:", totalReviews);
   }, [totalReviews]);
+
+  const [show, setShow] = useState(false);
+
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
+
+  const opts = {
+    height: "390",
+    width: "100%",
+    playerVars: {
+      // https://developers.google.com/youtube/player_parameters
+      autoplay: 0,
+      loop: 1,
+    },
+  };
 
   // useEffect(() => {
   //   // URL이 변경될 때마다 실행될 로직
@@ -30,6 +48,9 @@ const MovieDetailPage = () => {
 
   const [selectedSection, setSelectedSection] = useState("review");
   const { data, isLoading, isError, error } = useDetailMoviesQuery(id);
+  const { data: MovieTrailerKey } = useMovieTrailerQuery(id);
+
+  console.log("MovieTrailerKey:", MovieTrailerKey);
 
   console.log("Detail data:", data);
   if (isLoading) {
@@ -45,6 +66,11 @@ const MovieDetailPage = () => {
 
   const handleSectionChange = (e) => {
     setSelectedSection(e.target.value);
+  };
+
+  const onReady = (event) => {
+    // access to player in all event handlers via event.target
+    event.target.playVideo();
   };
 
   return (
@@ -70,23 +96,28 @@ const MovieDetailPage = () => {
           <hr></hr>
           <div className="detailUserInfo">
             <div>
-              <FontAwesomeIcon icon={faStar} />
-              {parseFloat(data.vote_average).toFixed(1)}
+              <div>
+                <FontAwesomeIcon icon={faStar} />
+                {parseFloat(data.vote_average).toFixed(1)}
+              </div>
+              <div>
+                <FontAwesomeIcon icon={faUsers} />
+                {parseInt(data.popularity)}
+              </div>
+              <div
+                className="detailAdult"
+                style={
+                  data.adult
+                    ? { backgroundColor: "red", color: "white" }
+                    : { backgroundColor: "green", color: "white" }
+                }
+              >
+                {data.adult ? "over 18" : "ALL"}
+              </div>
             </div>
-            <div>
-              <FontAwesomeIcon icon={faUsers} />
-              {parseInt(data.popularity)}
-            </div>
-            <div
-              className="detailAdult"
-              style={
-                data.adult
-                  ? { backgroundColor: "red", color: "white" }
-                  : { backgroundColor: "green", color: "white" }
-              }
-            >
-              {data.adult ? "over 18" : "ALL"}
-            </div>
+            <Button variant="dark" className="trailer" onClick={handleShow}>
+              trailer
+            </Button>
           </div>
           <hr></hr>
           <div className="detailOverview">
@@ -158,6 +189,19 @@ const MovieDetailPage = () => {
           </Col>
         </Row>
       )}
+      <Modal show={show} onHide={handleClose}>
+        <Modal.Header closeButton>
+          <Modal.Title>Movie Trailer</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <YouTube videoId={MovieTrailerKey} opts={opts} onReady={onReady} />
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Close
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 };
