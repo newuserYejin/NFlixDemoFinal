@@ -7,6 +7,12 @@
 
 @media (max-width: 1024px) {
     .carousel-container {
+        height: 400px;
+    }
+}
+
+@media (max-width: 464px) {
+    .carousel-container {
         height: 300px;
     }
 }

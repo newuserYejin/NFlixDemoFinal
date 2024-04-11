@@ -1,0 +1,130 @@
+.detailAllBox {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.detailRow {
+    justify-content: space-between;
+    width: 100%;
+}
+
+.detailRow>div:first-child {
+    display: flex;
+    justify-content: end;
+    height: auto;
+}
+
+.detailRow>div:first-child img {
+    width: 100%;
+    max-width: 70%;
+}
+
+.detailRow>div:nth-child(2) {
+    padding: 0;
+}
+
+.detailTitle {
+    font-size: 2.5em;
+    font-weight: bold;
+}
+
+.badge {
+    margin-right: 5px;
+    padding: 8px;
+    margin-bottom: 5px;
+}
+
+hr {
+    width: 100%;
+    color: white;
+    background-color: white;
+    opacity: 1;
+    margin: 1.5em 0
+}
+
+.detailAdult {
+    padding: 8px 8px;
+    border-radius: 0.375em;
+    width: max-content;
+}
+
+.detailUserInfo {
+    display: flex;
+    align-items: center;
+}
+
+.detailUserInfo div {
+    display: flex;
+    align-items: center;
+    background-color: #fdc500;
+    color: black;
+    padding: 8px 8px;
+    border-radius: 0.375em;
+    font-weight: bold;
+    margin-right: 10px;
+}
+
+.detailAddMovieInfo>div {
+    display: flex;
+    justify-content: start;
+    align-items: center;
+}
+
+.detailAddMovieInfo>div .badge {
+    width: 40%;
+    max-width: 150px;
+    text-align: center;
+    margin-right: 10px;
+    font-size: 0.8em;
+}
+
+.detailOverview::first-letter {
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+@media (max-width: 1024px) {
+    .detailRow div:first-child img {
+        max-width: 100%;
+    }
+
+    .container {
+        max-width: 90%;
+    }
+}
+
+@media (max-width: 464px) {
+    .detailTitle {
+        font-size: 2em;
+    }
+
+    hr {
+        margin: 0.5em 0;
+    }
+
+    .detailRow>div:first-child {
+        display: flex;
+        justify-content: center;
+        padding: 0;
+    }
+
+    .detailRow>div:first-child img {
+        width: 70%;
+    }
+
+    .detailUserInfo div {
+        padding: 3px;
+        margin-right: 5px;
+        font-size: 0.8em;
+    }
+
+    .detailOverview {
+        font-size: 0.8em;
+    }
+
+    .detailOverview:first-letter {
+        font-size: 1em;
+    }
+}

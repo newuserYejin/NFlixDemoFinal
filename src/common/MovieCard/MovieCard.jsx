@@ -4,8 +4,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { faStar } from "@fortawesome/free-regular-svg-icons";
 import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
-import "./MovieCard.css";
 import { useNavigate } from "react-router-dom";
+import "./MovieCard.style.css";
 
 const MovieCard = ({ movie }) => {
   const navigate = useNavigate();
@@ -34,7 +34,7 @@ const MovieCard = ({ movie }) => {
       style={{
         backgroundImage:
           "url(" +
-          `https://media.themoviedb.org/t/p/w1920_and_h800_multi_faces/${movie.poster_path}` +
+          `https://media.themoviedb.org/t/p/w300_and_h450_bestv2/${movie.poster_path}` +
           ")",
       }}
       onClick={() => moveMovieDetail(movie.id)}
