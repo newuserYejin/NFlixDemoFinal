@@ -4,8 +4,9 @@ import { Alert, Col, Row } from "react-bootstrap";
 import MovieSlider from "../../../../common/MovieSlider/MovieSlider";
 import { popularMovieResponsive } from "../../../../constants/responsive";
 import MovieCard from "../../../../common/MovieCard/MovieCard";
+import "./RecommendMovies.style.css";
 
-const RecommendMovies = ({ id, setTotalRecommend }) => {
+const RecommendMovies = ({ id }) => {
   const { data, isLoading, isError, error } = useRecommendMoviesQuery(id);
   console.log("recommend data:", data);
 
@@ -24,9 +25,9 @@ const RecommendMovies = ({ id, setTotalRecommend }) => {
           movies={data?.results}
           responsive={popularMovieResponsive}
         /> */}
-        <Row>
+        <Row className="recommendMovies">
           {data?.results.map((movie, index) => (
-            <Col lg={2} md={3} xs={6}>
+            <Col lg={2} md={4} xs={6}>
               <MovieCard movie={movie} key={index} />
             </Col>
           ))}

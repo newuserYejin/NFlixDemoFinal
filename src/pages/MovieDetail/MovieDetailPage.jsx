@@ -9,13 +9,21 @@ import "./MovieDetailPage.style.css";
 import MovieReview from "./component/Reviews/MovieReview";
 import RecommendMovies from "./component/RecommendMovies/RecommendMovies";
 import { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 
 const MovieDetailPage = () => {
   const [totalReviews, setTotalReviews] = useState(0);
+  // const locationURL = useLocation();
 
   useEffect(() => {
     console.log("totalReviews:", totalReviews);
   }, [totalReviews]);
+
+  // useEffect(() => {
+  //   // URL이 변경될 때마다 실행될 로직
+  //   console.log("URL이 변경되었습니다:", locationURL.pathname);
+  //   // 여기에 페이지를 다시 렌더링하거나 필요한 작업을 수행합니다.
+  // }, [locationURL]);
 
   const { id } = useParams();
   console.log("id:", id);

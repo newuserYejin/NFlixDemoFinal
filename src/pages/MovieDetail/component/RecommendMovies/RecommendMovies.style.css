@@ -1,0 +1,9 @@
+.recommendMovies {
+    margin-left: 0;
+}
+
+@media (max-width: 464px) {
+    .row>* {
+        height: auto;
+    }
+}
