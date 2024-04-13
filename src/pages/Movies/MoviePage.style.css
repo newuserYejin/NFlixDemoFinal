@@ -46,53 +46,79 @@
     border-radius: 50%;
 }
 
+.FiltersCol {
+    padding-top: 2em;
+}
+
 /*정렬 드랍박스*/
 
 .FilterDropBox {
     display: flex;
     justify-content: start;
+    height: 70px;
 }
 
-.FilterDropBox>button {
+.GenreFilterArea {
+    margin-top: 20px;
+    height: 70px;
+}
+
+.FilterDropBox>button,
+.GenreFilterArea>button {
     display: flex;
     align-items: center;
+    height: 100%;
 }
 
-.FilterDropBox>button>div {
+.FilterDropBox>button>div,
+.GenreFilterArea>button>div {
     display: flex;
     align-items: center;
 }
 
 
 .FilterDropBox>button,
-.FilterDropBox>button+div {
+.FilterDropBox>button+div,
+.GenreFilterArea>button,
+.GenreFilterArea>button+div {
     width: 70%;
     text-align: center;
-    font-size: 1.5em;
+    font-size: 1.3em;
 }
 
-.FilterDropBox>button>div {
+.FilterDropBox>button>div,
+.GenreFilterArea>button>div {
     width: 100%;
 }
 
-.FilterDropBox>button+div {
+.FilterDropBox>button+div,
+.GenreFilterArea>button+div {
     transform: translate3d(0, 2em, 0px);
     padding: 0;
     margin-top: 10px;
 }
 
-.FilterDropBox>.btn-primary {
-    background-color: black;
-    border: solid 3px rgb(185, 2, 2);
+.FilterDropBox>.btn-primary,
+.GenreFilterArea>.btn-primary {
+    background-color: rgb(206, 206, 206);
+    border: solid 4px rgb(185, 2, 2);
+    color: black;
+    font-weight: 600;
 }
 
-.FilterDropBox>.dropdown-menu {
-    background-color: black;
+.FilterDropBox>.btn-primary:hover,
+.GenreFilterArea>.btn-primary:hover {
+    background-color: white;
+}
+
+.FilterDropBox>.dropdown-menu,
+.GenreFilterArea>.dropdown-menu {
+    background-color: rgb(206, 206, 206);
     border: solid 3px rgb(185, 2, 2);
 }
 
 .FilterDropBox>.dropdown-menu * {
-    color: white;
+    color: black;
 }
 
 .FilterDropBox>.dropdown-menu *:first-child {
@@ -101,11 +127,13 @@
 
 .FilterDropBox>.btn-check:checked+.btn,
 .FilterDropBox>.btn.active,
+.GenreFilterArea>.btn.active,
 .FilterDropBox>.btn.show,
+.GenreFilterArea>.btn.show,
 .FilterDropBox>.btn:first-child:active,
 :not(.btn-check)+.btn:active {
-    background-color: rgb(185, 2, 2);
-    color: white;
+    background-color: white;
+    color: black;
     border-color: rgb(185, 2, 2);
 }
 
@@ -121,25 +149,72 @@
     background-color: rgb(185, 2, 2);
 }
 
+.GenreFilterArea>.dropdown-menu>div {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 0.375em 0.7em;
+}
+
+.GenreFilterArea>.dropdown-menu>div>button {
+    width: 48%;
+    background: none;
+    border: solid 2px rgb(185, 2, 2);
+    color: black;
+    font-weight: 600;
+    margin-top: 10px;
+}
+
+.GenreFilterArea>.dropdown-menu>div>button:first-child,
+.GenreFilterArea>.dropdown-menu>div>button:nth-child(2) {
+    margin-top: 0;
+}
+
+.GenreFilterArea>.dropdown-menu>div>button:hover {
+    background-color: rgb(185, 2, 2);
+    color: white;
+    border-color: rgb(185, 2, 2);
+}
+
+
 @media (min-width:464px) and (max-width:1024px) {
 
     .FilterDropBox>button,
+    .GenreFilterArea>button,
+    .GenreFilterArea>button+div,
     .FilterDropBox>button+div {
-        width: 95%;
+        width: 90%;
     }
 
-    .FilterDropBox>button>div {
+    .FilterDropBox>button>div,
+    .GenreFilterArea>button>div {
         display: flex;
         flex-direction: column;
         font-size: 0.9em;
     }
 
-    .FilterDropBox>button {
+    .FilterDropBox>button,
+    .GenreFilterArea>button {
         padding: 5px 8px;
+    }
+
+    .GenreFilterArea>.dropdown-menu>div {
+        padding: 0.375em;
+    }
+
+    .GenreFilterArea>.dropdown-menu>div>button {
+        text-align: center;
+        font-size: 0.6em;
+        padding-left: 0;
+        padding-right: 0;
     }
 }
 
 @media (max-width:464px) {
+    .FiltersCol {
+        padding-top: 0;
+    }
+
     .row .MoviePagePopularMovies>* {
         height: 250px;
     }
@@ -149,9 +224,22 @@
     }
 
     .FilterDropBox>button,
-    .FilterDropBox>button+div {
+    .FilterDropBox>button+div,
+    .GenreFilterArea>button,
+    .GenreFilterArea>button+div {
         width: 100%;
         text-align: center;
         font-size: 1.1em;
+    }
+
+    .GenreFilterArea>.dropdown-menu>div {
+        padding: 0.375em 2px;
+    }
+
+    .GenreFilterArea>.dropdown-menu>div>button {
+        width: 30%;
+        padding-left: 0;
+        padding-right: 0;
+        font-size: 0.65em;
     }
 }

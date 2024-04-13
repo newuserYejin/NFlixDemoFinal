@@ -29,6 +29,8 @@ const MoviePage = () => {
   const keyword = query.get("q");
   const [orderMessage, setOrderMessage] = useState(null);
 
+  const [selectedGenre, setSelectedGenre] = useState("ALL");
+
   const { data, isLoading, isError, error } = useSearchMovieQuery({
     keyword,
     page,
@@ -94,19 +96,26 @@ const MoviePage = () => {
     setOrderMessage(": Low Order");
   };
 
-  const GenreFiltering = (genreId) => {
-    console.log("장르별 필터링:", genreId);
-    const sortedData = [...data.results].filter((movie) =>
-      movie.genre_ids.includes(genreId)
-    );
-    setMoviesData({ ...data, results: sortedData });
-    console.log("장르별 필터링 결과: ", sortedData);
+  // 장르별 정리
+  const GenreFiltering = (genreId, genreName) => {
+    if (genreName === "all") {
+      setMoviesData({ ...data });
+      setSelectedGenre("ALL");
+    } else {
+      console.log("장르별 필터링:", genreId);
+      const sortedData = [...data.results].filter((movie) =>
+        movie.genre_ids.includes(genreId)
+      );
+      setMoviesData({ ...data, results: sortedData });
+      console.log("장르별 필터링 결과: ", sortedData);
+      setSelectedGenre(genreName);
+    }
   };
 
   return (
     <Container className="searchContainer">
       <Row>
-        <Col lg={6} md={4} xs={12}>
+        <Col className="FiltersCol" lg={6} md={4} xs={12}>
           {/* 인기순 정리 */}
           <DropdownButton
             className="FilterDropBox"
@@ -126,19 +135,31 @@ const MoviePage = () => {
             </Dropdown.Item>
           </DropdownButton>
           {/* 장르별 필터링 */}
-          <div>
-            {genreData.map((genre) => {
-              return (
-                <Button
-                  variant="danger"
-                  value={genre.id}
-                  onClick={() => GenreFiltering(genre.id)}
-                >
-                  {genre.name}
-                </Button>
-              );
-            })}
-          </div>
+          <DropdownButton
+            id="dropdown-basic-button"
+            className="GenreFilterArea"
+            title={
+              <div>
+                Genre
+                {selectedGenre && <div>: {selectedGenre}</div>}
+              </div>
+            }
+          >
+            <div>
+              <Button onClick={() => GenreFiltering("", "all")}>ALL</Button>
+
+              {genreData.map((genre) => {
+                return (
+                  <Button
+                    value={genre.id}
+                    onClick={() => GenreFiltering(genre.id, genre.name)}
+                  >
+                    {genre.name}
+                  </Button>
+                );
+              })}
+            </div>
+          </DropdownButton>
         </Col>
 
         {/* 인기영화 랜덤 뿌리기 */}
