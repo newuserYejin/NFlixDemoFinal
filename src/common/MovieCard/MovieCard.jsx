@@ -13,6 +13,7 @@ const MovieCard = ({ movie }) => {
   const moveMovieDetail = (id) => {
     console.log("id:", id);
     navigate(`/movies/${id}`);
+    window.scrollTo(0, 0);
   };
 
   const { data: genreData } = useMovieGenreQuery();

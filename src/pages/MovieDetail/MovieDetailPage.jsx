@@ -47,12 +47,19 @@ const MovieDetailPage = () => {
   console.log("id:", id);
 
   const [selectedSection, setSelectedSection] = useState("review");
-  const { data, isLoading, isError, error } = useDetailMoviesQuery(id);
-  const { data: MovieTrailerKey } = useMovieTrailerQuery(id);
+  const { data, isLoading, isError, error, refetch } = useDetailMoviesQuery(id);
+  const { data: MovieTrailerKey, refetch: MovieTrailerKeyRefetch } =
+    useMovieTrailerQuery(id);
 
   console.log("MovieTrailerKey:", MovieTrailerKey);
 
   console.log("Detail data:", data);
+
+  useEffect(() => {
+    refetch();
+    MovieTrailerKeyRefetch();
+  }, [id, refetch]);
+
   if (isLoading) {
     return <h1>Loading...</h1>;
   }

@@ -1,7 +1,14 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useSearchMovieQuery } from "../../hooks/useSearchMovie";
 import { useSearchParams } from "react-router-dom";
-import { Container, Col, Row, Alert } from "react-bootstrap";
+import {
+  Container,
+  Col,
+  Row,
+  Alert,
+  Dropdown,
+  DropdownButton,
+} from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import "./MoviePage.style.css";
@@ -18,12 +25,23 @@ const MoviePage = () => {
   const [query, setQuery] = useSearchParams();
   const [page, setPage] = useState(1);
   const keyword = query.get("q");
+  const [orderMessage, setOrderMessage] = useState(null);
 
   const { data, isLoading, isError, error } = useSearchMovieQuery({
     keyword,
     page,
   });
   console.log("data:", data);
+
+  const [moviesData, setMoviesData] = useState(data);
+
+  useEffect(() => {
+    console.log("order Message:", orderMessage);
+  }, [orderMessage]);
+  useEffect(() => {
+    // data가 변경될 때마다 moviesData 업데이트
+    setMoviesData(data);
+  }, [data]);
 
   const handlePageClick = ({ selected }) => {
     setPage(selected + 1);
@@ -35,19 +53,69 @@ const MoviePage = () => {
   if (isError) {
     return <Alert variant="danger">{error.message}</Alert>;
   }
+
+  // 인기순 함수
+  const OrderHigher = () => {
+    const sortedData = [...moviesData.results].sort(
+      (a, b) => b.popularity - a.popularity
+    );
+
+    // const sortedData = _.sortBy([...moviesData.results], "popularity");    // lodash 사용시의 코드
+
+    console.log("높은 순 정리: ", sortedData);
+
+    setMoviesData({ ...moviesData, results: sortedData });
+    setOrderMessage(": High Order");
+  };
+
+  const OrderLower = () => {
+    const sortedData = [...moviesData.results].sort(
+      (a, b) => a.popularity - b.popularity
+    );
+    console.log("낮은 순 정리: ", sortedData);
+    setMoviesData({ ...moviesData, results: sortedData });
+    setOrderMessage(": Low Order");
+  };
+
   return (
     <Container className="searchContainer">
       <Row>
         <Col lg={6} md={4} xs={12}>
-          필터
+          {/* 인기순 정리 */}
+          <DropdownButton
+            className="FilterDropBox"
+            id="dropdown-basic-button"
+            title={
+              <div>
+                Popularity Order
+                <div>{orderMessage}</div>
+              </div>
+            }
+          >
+            <Dropdown.Item href="" onClick={OrderHigher}>
+              High Order
+            </Dropdown.Item>
+            <Dropdown.Item href="" onClick={OrderLower}>
+              Low Order
+            </Dropdown.Item>
+          </DropdownButton>
+          {/* 장르별 필터링 */}
         </Col>
+
+        {/* 인기영화 랜덤 뿌리기 */}
         <Col lg={6} md={8} xs={12}>
           <Row>
-            {data?.results.map((movie, index) => (
-              <Col lg={4} xs={6}>
-                <MovieCard movie={movie} key={index} />
-              </Col>
-            ))}
+            {moviesData && moviesData.results
+              ? moviesData.results.map((movie, index) => (
+                  <Col lg={4} xs={6}>
+                    <MovieCard movie={movie} key={index} />
+                  </Col>
+                ))
+              : data.results.map((movie, index) => (
+                  <Col lg={4} xs={6}>
+                    <MovieCard movie={movie} key={index} />
+                  </Col>
+                ))}
           </Row>
           <div className="paginationArea">
             <ReactPaginate
@@ -55,7 +123,7 @@ const MoviePage = () => {
               onPageChange={handlePageClick}
               pageRangeDisplayed={10}
               marginPagesDisplayed={0}
-              pageCount={data.total_pages} // 전체 페이지 수
+              pageCount={moviesData ? moviesData.total_pages : data.total_pages} // 전체 페이지 수
               previousLabel="<"
               pageClassName="page-item"
               pageLinkClassName="page-link"
