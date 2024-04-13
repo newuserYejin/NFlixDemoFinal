@@ -242,4 +242,12 @@
         padding-right: 0;
         font-size: 0.65em;
     }
+
+    .paginationArea {
+        width: 100%;
+    }
+
+    .page-link {
+        padding: 0.3em;
+    }
 }
