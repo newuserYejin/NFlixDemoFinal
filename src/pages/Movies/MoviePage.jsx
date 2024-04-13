@@ -8,10 +8,12 @@ import {
   Alert,
   Dropdown,
   DropdownButton,
+  Button,
 } from "react-bootstrap";
 import MovieCard from "../../common/MovieCard/MovieCard";
 import ReactPaginate from "react-paginate";
 import "./MoviePage.style.css";
+import { useMovieGenreQuery } from "../../hooks/useMovieGenre";
 
 // 이동 경로 2가지
 // 네비바에서 검색 ( popular movie 출력 )
@@ -35,11 +37,17 @@ const MoviePage = () => {
 
   const [moviesData, setMoviesData] = useState(data);
 
+  const {
+    data: genreData,
+    isLoading: genreDataIsLoading,
+    isError: genreDataIsError,
+    error: genreDataError,
+  } = useMovieGenreQuery();
+
+  console.log("genreData:", genreData);
+
+  // data가 변경될 때마다 moviesData 업데이트
   useEffect(() => {
-    console.log("order Message:", orderMessage);
-  }, [orderMessage]);
-  useEffect(() => {
-    // data가 변경될 때마다 moviesData 업데이트
     setMoviesData(data);
   }, [data]);
 
@@ -47,6 +55,15 @@ const MoviePage = () => {
     setPage(selected + 1);
   };
 
+  // useMovieGenreQuery 관련
+  if (genreDataIsLoading) {
+    return <h1>Genre Loading..</h1>;
+  }
+  if (genreDataIsError) {
+    return <Alert variant="danger">{genreDataError.message}</Alert>;
+  }
+
+  // useSearchMovieQuery 관련
   if (isLoading) {
     return <h1>Loading..</h1>;
   }
@@ -77,6 +94,15 @@ const MoviePage = () => {
     setOrderMessage(": Low Order");
   };
 
+  const GenreFiltering = (genreId) => {
+    console.log("장르별 필터링:", genreId);
+    const sortedData = [...data.results].filter((movie) =>
+      movie.genre_ids.includes(genreId)
+    );
+    setMoviesData({ ...data, results: sortedData });
+    console.log("장르별 필터링 결과: ", sortedData);
+  };
+
   return (
     <Container className="searchContainer">
       <Row>
@@ -100,11 +126,24 @@ const MoviePage = () => {
             </Dropdown.Item>
           </DropdownButton>
           {/* 장르별 필터링 */}
+          <div>
+            {genreData.map((genre) => {
+              return (
+                <Button
+                  variant="danger"
+                  value={genre.id}
+                  onClick={() => GenreFiltering(genre.id)}
+                >
+                  {genre.name}
+                </Button>
+              );
+            })}
+          </div>
         </Col>
 
         {/* 인기영화 랜덤 뿌리기 */}
         <Col lg={6} md={8} xs={12}>
-          <Row>
+          <Row className="MoviePagePopularMovies">
             {moviesData && moviesData.results
               ? moviesData.results.map((movie, index) => (
                   <Col lg={4} xs={6}>
@@ -117,6 +156,7 @@ const MoviePage = () => {
                   </Col>
                 ))}
           </Row>
+
           <div className="paginationArea">
             <ReactPaginate
               nextLabel=">"

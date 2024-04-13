@@ -1,7 +1,7 @@
 .row>* {
     margin-bottom: 10px;
     padding-left: 0;
-    height: 350px;
+    height: 330px;
 }
 
 .searchContainer {
@@ -140,6 +140,9 @@
 }
 
 @media (max-width:464px) {
+    .row .MoviePagePopularMovies>* {
+        height: 250px;
+    }
 
     .row {
         margin-left: 0;
