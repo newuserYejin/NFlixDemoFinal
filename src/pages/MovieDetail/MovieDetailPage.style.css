@@ -132,9 +132,31 @@ hr {
 }
 
 /*모달 창*/
-.modal-dialog {
-    max-width: 80%;
+
+.modal-content {
+    background-color: rgb(231, 230, 230);
 }
+
+.modal-header {
+    border-color: rgb(220, 53, 69);
+}
+
+.modal-title {
+    font-weight: bold;
+}
+
+.modal-footer {
+    border-color: rgb(220, 53, 69);
+}
+
+.modal-dialog {
+    max-width: 70%;
+}
+
+.btn-danger {
+    background-color: rgb(220, 53, 69);
+}
+
 
 @media (max-width: 1024px) {
     .detailRow div:first-child img {
@@ -185,5 +207,49 @@ hr {
 
     .detailOverview:first-letter {
         font-size: 1em;
+    }
+
+    .modal {
+        width: 100%;
+        display: flex !important;
+        justify-content: center;
+    }
+
+    .modal-dialog {
+        height: 55vh;
+        margin: auto 0;
+    }
+
+    .modal-content {
+        height: 100%;
+    }
+
+    .modal-header {
+        height: 7vh;
+    }
+
+    .modal-body {
+        height: 40vh;
+    }
+
+
+    .modal-body>div {
+        height: 100%;
+    }
+
+    .modal-body>div>iframe {
+        height: 100%;
+    }
+
+    .modal-footer {
+        height: 6vh;
+        padding: 0;
+    }
+
+    .modal-footer>button {
+        height: 80%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 }

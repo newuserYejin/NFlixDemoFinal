@@ -110,6 +110,7 @@ const MoviePage = () => {
       console.log("장르별 필터링 결과: ", sortedData);
       setSelectedGenre(genreName);
     }
+    setOrderMessage("");
   };
 
   return (
